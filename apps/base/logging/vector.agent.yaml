@@ -32,18 +32,11 @@ spec:
       enabled: false
     serviceHeadless:
       enabled: false
-    env:
-      - name: VECTOR_USERNAME
-        valueFrom:
-          secretKeyRef:
-            name: vector-secret
-            key: vector.username
-      - name: VECTOR_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: vector-secret
-            key: vector.password
+    envFrom:
+      - secretRef:
+          name: vector-secret
     customConfig:
+      data_dir: "/vector-data-dir"
       api:
         enabled: false
       sources:
