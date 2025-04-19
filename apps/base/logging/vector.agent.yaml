@@ -32,17 +32,17 @@ spec:
       enabled: false
     serviceHeadless:
       enabled: false
-    env:
-      - name: VECTOR_USERNAME
-        valueFrom:
-          secretKeyRef:
-            name: vector-secret
-            key: VECTOR_USERNAME
-      - name: VECTOR_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: vector-secret
-            key: VECTOR_PASSWORD
+    # env:
+    #   - name: VECTOR_USERNAME
+    #     valueFrom:
+    #       secretKeyRef:
+    #         name: vector-secret
+    #         key: VECTOR_USERNAME
+    #   - name: VECTOR_PASSWORD
+    #     valueFrom:
+    #       secretKeyRef:
+    #         name: vector-secret
+    #         key: VECTOR_PASSWORD
     customConfig:
       data_dir: "/vector-data-dir"
       api:
@@ -77,7 +77,7 @@ spec:
             dataset: "k8s"
           auth:
             strategy: basic
-            user: "${VECTOR_USERNAME}"
-            password: "${VECTOR_PASSWORD}"
+            user: "admin"
+            password: "myStrongPassword123@456"
           request:
             concurrency: adaptive
