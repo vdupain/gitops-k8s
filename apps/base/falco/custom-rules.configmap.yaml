@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: falco-rules
+  namespace: falco
+  labels:
+    app.kubernetes.io/name: falco
+    app.kubernetes.io/instance: falco
+data:
+  rules-custom.yaml: |-
+    - macro: container_started
+      condition: ((evt.type = container) or (spawned_process and proc.vpid=1))
+
+    - rule: New container with tag latest
+      desc: Detect if a new container with the tag "latest" is started
+      condition: >
+        container_started and container.image.tag="latest"
+      output: A new container with the tag "latest" is started (container_id=%container.id container_image=%container.image.repository container_image_tag=%container.image.tag container_name=%container.name k8s_ns=%k8s.ns.name k8s_pod_name=%k8s.pod.name)
+      priority: INFO
+      tags: [container, invalid_tag]
+      
+    - rule: Base64-encoded Python Script Execution
+      desc: >
+        This rule detects base64-encoded Python scripts on command line arguments.
+      condition: >
+        spawned_process and (
+          ((proc.cmdline contains "python -c" or proc.cmdline contains "python3 -c" or proc.cmdline contains "python2 -c") and (proc.cmdline contains "echo" or proc.cmdline icontains "base64")) or ((proc.cmdline contains "import" and proc.cmdline contains "base64" and proc.cmdline contains "decode")))
+      output: >
+        Potentially malicious Python script encoded on command line
+        (proc.cmdline=%proc.cmdline user.name=%user.name proc.name=%proc.name
+        proc.pname=%proc.pname evt.type=%evt.type gparent=%proc.aname[2]
+        ggparent=%proc.aname[3] gggparent=%proc.aname[4] evt.res=%evt.res
+        container.id=%container.id container.name=%container.name file=%fd.name)
+      priority: warning
+      tags:
+        - T1037.004
+        - MITRE_Defense_Evasion
+      source: syscall      

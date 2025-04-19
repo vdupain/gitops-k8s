@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: infra-vars
+  namespace: flux-system
+data:
+  clusterName: "prod"
+  ciliumLoadBalancerIPPoolBlockStart: "192.168.10.210"
+  ciliumLoadBalancerIPPoolBlockStop: "192.168.10.215"
+  corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.210"
+  traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.211"
+  externalDnsDomainFilter: "homelab.vincentdupain.com"
+  prometheusIngressHost: "prometheus.homelab.vincentdupain.com"
+  grafanaIngressHost: "grafana.homelab.vincentdupain.com"
+  alertmanagerIngressHost: "alertmanager.homelab.vincentdupain.com"
+  sealedSecretsIngressHost: "sealedsecrets.homelab.vincentdupain.com"

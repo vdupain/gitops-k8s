@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apps-vars
+  namespace: flux-system
+data:
+  flowiseIngressHost: "flowise.homelab.vincentdupain.com"
+  homepageIngressHost: "homepage.homelab.vincentdupain.com"
+  n8nIngressHost: "n8n.homelab.vincentdupain.com"
+  ollamaIngressHost: "ollama.homelab.vincentdupain.com"
+  opensearchIngressHost: "logging.homelab.vincentdupain.com"
+  openwebuiIngressHost: "open-webui.homelab.vincentdupain.com"
+  podinfoIngressHost: "podinfo.homelab.vincentdupain.com"
+  qdrantIngressHost: "qdrant.homelab.vincentdupain.com"

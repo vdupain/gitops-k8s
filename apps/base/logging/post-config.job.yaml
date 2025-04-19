@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: opensearch-post-config-job
+  namespace: logging
+spec:
+  template:
+    metadata:
+      labels:
+        app: opensearch-post-config-job
+    spec:
+      volumes:
+      - name: opensearch-post-config-job-volume
+        configMap:
+          name: opensearch-post-config-script
+          defaultMode: 0777
+      containers:
+        - name: opensearch-post-config-job
+          image: yauritux/busybox-curl
+          volumeMounts:
+            - name: opensearch-post-config-job-volume
+              mountPath: /scripts
+          envFrom:
+            - secretRef:
+                name: opensearch-secrets
+          env:
+            - name: OPENSEARCH_SERVER
+              value: https://opensearch-cluster-master:9200
+          command:
+            - /scripts/opensearch-post-config-job.sh
+      restartPolicy: OnFailure

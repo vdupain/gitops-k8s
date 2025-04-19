@@ -1,0 +1,81 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-cilium
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/cilium
+  prune: true
+  wait: true
+  postBuild:
+    substitute:
+      ciliumLoadBalancerIPPoolBlockStart: "192.168.10.215"
+      ciliumLoadBalancerIPPoolBlockStop: "192.168.10.220"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-controllers
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-cilium
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/controllers
+  prune: true
+  wait: true
+  postBuild:
+    substitute:
+      clusterName: "staging"
+      corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.215"
+      traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.216"
+      externalDnsDomainFilter: "staging.k8s.vincentdupain.com"
+      alertmanagerIngressHost: "alertmanager.staging.k8s.vincentdupain.com"
+      grafanaIngressHost: "grafana.staging.k8s.vincentdupain.com"
+      prometheusIngressHost: "prometheus.staging.k8s.vincentdupain.com"
+      sealedSecretsIngressHost: "sealedsecrets.staging.k8s.vincentdupain.com"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-configs
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-controllers
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/configs
+  prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-tf
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/tf
+  prune: true
+  wait: true

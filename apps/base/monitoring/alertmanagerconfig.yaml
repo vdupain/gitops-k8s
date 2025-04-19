@@ -1,0 +1,23 @@
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: n8n-config
+  namespace: monitoring
+  labels:
+    alertmanager: config
+spec:
+  route:
+    groupBy: ["alertname"]
+    groupWait: 30s
+    groupInterval: 1m
+    repeatInterval: 5m
+    receiver: "n8n-receiver"
+    routes:
+      - receiver: "n8n-receiver"
+        continue: true
+  receivers:
+    - name: "n8n-receiver"
+      webhookConfigs:
+        - sendResolved: true
+          url: http://n8n.n8n:5678/webhook/alertmanager

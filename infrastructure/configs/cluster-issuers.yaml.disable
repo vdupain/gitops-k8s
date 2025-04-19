@@ -1,0 +1,56 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: le-prod
+spec:
+  acme:
+    email: vince9p+acme@pm.me
+    privateKeySecretRef:
+      name: le-prod-account-key
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        cnameStrategy: None
+        webhook:
+          config:
+            applicationKeyRef:
+              key: applicationKey
+              name: ovh-credentials
+            applicationSecretRef:
+              key: applicationSecret
+              name: ovh-credentials
+            consumerKeyRef:
+              key: consumerKey
+              name: ovh-credentials
+            endpoint: ovh-eu
+          groupName: acme.vincentdupain.com
+          solverName: ovh
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: le-staging
+spec:
+  acme:
+    email: vince9p+acme@pm.me
+    privateKeySecretRef:
+      name: le-staging-account-key
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        cnameStrategy: None
+        webhook:
+          config:
+            applicationKeyRef:
+              key: applicationKey
+              name: ovh-credentials
+            applicationSecretRef:
+              key: applicationSecret
+              name: ovh-credentials
+            consumerKeyRef:
+              key: consumerKey
+              name: ovh-credentials
+            endpoint: ovh-eu
+          groupName: acme.vincentdupain.com
+          solverName: ovh

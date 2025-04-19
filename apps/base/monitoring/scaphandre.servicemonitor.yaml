@@ -1,0 +1,135 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: scaphandre-pve0
+  namespace: monitoring
+  labels:
+    app: scaphandre-pve0
+    release: kube-prometheus-stack  
+spec:
+  endpoints:
+    - port: metrics
+      interval: 30s
+      path: /metrics
+      relabelings:
+        - action: replace
+          sourceLabels:
+            - service
+          targetLabel: pve_node
+          regex: "scaphandre-(.+)"
+  fallbackScrapeProtocol: PrometheusText1.0.0
+  selector:
+    matchLabels:
+      app: scaphandre-pve0
+  namespaceSelector:
+    matchNames:
+      - monitoring
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: scaphandre-pve1
+  namespace: monitoring
+  labels:
+    app: scaphandre-pve1
+    release: kube-prometheus-stack  
+spec:
+  endpoints:
+    - port: metrics
+      interval: 30s
+      path: /metrics
+      relabelings:
+        - action: replace
+          sourceLabels:
+            - service
+          targetLabel: pve_node
+          regex: "scaphandre-(.+)"
+  fallbackScrapeProtocol: PrometheusText1.0.0
+  selector:
+    matchLabels:
+      app: scaphandre-pve1
+  namespaceSelector:
+    matchNames:
+      - monitoring
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: scaphandre-pve2
+  namespace: monitoring
+  labels:
+    app: scaphandre-pve2
+    release: kube-prometheus-stack  
+spec:
+  endpoints:
+    - port: metrics
+      interval: 30s
+      path: /metrics
+      relabelings:
+        - action: replace
+          sourceLabels:
+            - service
+          targetLabel: pve_node
+          regex: "scaphandre-(.+)"
+  fallbackScrapeProtocol: PrometheusText1.0.0
+  selector:
+    matchLabels:
+      app: scaphandre-pve2
+  namespaceSelector:
+    matchNames:
+      - monitoring
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: scaphandre-pve3
+  namespace: monitoring
+  labels:
+    app: scaphandre-pve3
+    release: kube-prometheus-stack  
+spec:
+  endpoints:
+    - port: metrics
+      interval: 30s
+      path: /metrics
+      relabelings:
+        - action: replace
+          sourceLabels:
+            - service
+          targetLabel: pve_node
+          regex: "scaphandre-(.+)"
+  fallbackScrapeProtocol: PrometheusText1.0.0
+  selector:
+    matchLabels:
+      app: scaphandre-pve3
+  namespaceSelector:
+    matchNames:
+      - monitoring
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: scaphandre-pve4
+  namespace: monitoring
+  labels:
+    app: scaphandre-pve4
+    release: kube-prometheus-stack  
+spec:
+  endpoints:
+    - port: metrics
+      interval: 30s
+      path: /metrics
+      relabelings:
+        - action: replace
+          sourceLabels:
+            - service
+          targetLabel: pve_node
+          regex: "scaphandre-(.+)"
+  fallbackScrapeProtocol: PrometheusText1.0.0
+  selector:
+    matchLabels:
+      app: scaphandre-pve4
+  namespaceSelector:
+    matchNames:
+      - monitoring

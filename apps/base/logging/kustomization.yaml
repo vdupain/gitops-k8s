@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- logging.namespace.yaml
+- opensearch-dashboards.helmrelease.yaml
+- opensearch.helmrelease.yaml
+- opensearch.helmrepo.yaml
+- opensearch.sealedsecret.yaml
+- post-config.configmap.yaml
+- post-config.job.yaml
+- vector.agent.yaml
+- vector.sealedsecret.yaml

@@ -1,0 +1,68 @@
+---
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: cert-manager-webhook-ovh
+  namespace: cert-manager
+spec:
+  interval: 24h
+  url: https://aureq.github.io/cert-manager-webhook-ovh/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cert-manager-webhook-ovh
+  namespace: cert-manager
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: cert-manager-webhook-ovh
+      version: 0.7.0
+      sourceRef:
+        kind: HelmRepository
+        name: cert-manager-webhook-ovh
+        namespace: cert-manager
+      interval: 12h
+
+  values:
+    configVersion: 0.0.1
+    groupName: acme.vincentdupain.com
+    issuers:
+      - name: le-prod
+        create: true
+        kind: ClusterIssuer
+        namespace: default
+        cnameStrategy: None
+        acmeServerUrl: https://acme-v02.api.letsencrypt.org/directory
+        email: vince9p+acme@pm.me
+        ovhEndpointName: ovh-eu
+        ovhAuthenticationRef:
+          applicationKeyRef:
+            name: ovh-credentials
+            key: applicationKey
+          applicationSecretRef:
+            name: ovh-credentials
+            key: applicationSecret
+          consumerKeyRef:
+            name: ovh-credentials
+            key: consumerKey
+      - name: le-staging
+        create: true
+        kind: ClusterIssuer
+        namespace: default
+        cnameStrategy: None
+        acmeServerUrl: https://acme-staging-v02.api.letsencrypt.org/directory
+        email: vince9p+acme@pm.me
+        ovhEndpointName: ovh-eu
+        ovhAuthenticationRef:
+          applicationKeyRef:
+            name: ovh-credentials
+            key: applicationKey
+          applicationSecretRef:
+            name: ovh-credentials
+            key: applicationSecret
+          consumerKeyRef:
+            name: ovh-credentials
+            key: consumerKey

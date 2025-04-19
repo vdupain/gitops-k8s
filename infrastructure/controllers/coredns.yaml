@@ -1,0 +1,80 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: coredns
+  labels:
+    vector.dev/exclude: "true"
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: coredns
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: https://coredns.github.io/helm
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: coredns
+  namespace: coredns
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: coredns
+      version: 1.36.0
+      sourceRef:
+        kind: HelmRepository
+        name: coredns
+        namespace: flux-system
+      interval: 12h
+  releaseName: coredns
+
+  values:
+    rbac:
+      create: true      
+    # CoreDNS as an external dns service
+    isClusterService: false
+    serviceType: "LoadBalancer"
+    service:
+      annotations:
+        io.cilium/lb-ipam-ips: ${corednsServiceAnnotationCiliumLBIPAddrMgmt}
+
+    # Default zone is what Kubernetes recommends:
+    # https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/#coredns-configmap-options
+    servers:
+    - zones:
+      - zone: .
+      port: 53
+      plugins:
+      - name: errors
+      - name: health
+        configBlock: |-
+          lameduck 5s
+      - name: ready
+      # Required to query kubernetes API for data
+      # - name: kubernetes
+      #   parameters: cluster.local in-addr.arpa ip6.arpa
+      #   configBlock: |-
+      #     pods insecure
+      #     fallthrough in-addr.arpa ip6.arpa
+      #     ttl 30
+      - name: prometheus
+        parameters: 0.0.0.0:9153
+      - name: forward
+        parameters: . /etc/resolv.conf
+      - name: etcd
+        parameters: k8s
+        configBlock: |-
+          stubzones
+          path /skydns
+          endpoint http://etcd.etcd.svc.cluster.local:2379
+      - name: cache
+        parameters: 30
+      - name: loop
+      - name: reload
+      - name: loadbalance
+

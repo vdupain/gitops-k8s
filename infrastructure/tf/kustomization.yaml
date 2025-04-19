@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../controllers/zfs-localpv.yaml
+- ../controllers/sealed-secrets.yaml
+- tf-controller.yaml
+#- tofu-controller.crds.yaml
+#- tofu-controller.deployment.yaml
+#- tofu-controller.rbac.yaml

@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: atomic-red
+  labels:
+    # https://www.talos.dev/v1.7/kubernetes-guides/configuration/pod-security/
+    pod-security.kubernetes.io/enforce: privileged
+    vector.dev/exclude: "true"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atomicred
+  namespace: atomic-red
+  labels:
+    app: atomicred
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atomicred
+  template:
+    metadata:
+      labels:
+        app: atomicred
+    spec:
+      containers:
+      - name: atomicred
+        image: issif/atomic-red:latest
+        imagePullPolicy: "IfNotPresent"
+        command: ["sleep", "3560d"]
+        securityContext:
+          privileged: true
+

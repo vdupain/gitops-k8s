@@ -1,0 +1,74 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vector-falcosidekick
+  namespace: falco
+spec:
+  chart:
+    spec:
+      chart: vector
+      sourceRef:
+        kind: HelmRepository
+        name: vector
+        namespace: flux-system
+      version: 0.36.1
+  interval: 15m
+  timeout: 5m
+  releaseName: vector-falcosidekick
+
+  values:
+    role: Aggregator
+    replicas: 1
+    customConfig:
+      data_dir: /var/lib/vector
+      api:
+        enabled: false
+      sources:
+        syslog:
+          type: syslog
+          address : 0.0.0.0:15514
+          mode : tcp
+          path: /vector/syslog/socket
+      transforms:
+        json_parse:
+          type: "remap"
+          inputs:
+            - syslog
+          source: |
+            structured, err = parse_json(.message)
+            if err != null {
+              log("Unable to parse message", level: "warn", rate_limit_secs: 3600)
+            } else {
+              . = merge!(., structured)
+              del(.message)
+            }
+      sinks:
+        console:
+          type: "console"
+          inputs:
+            - json_parse
+          encoding:
+            codec : "json"
+        opensearch:
+          inputs:
+            - json_parse
+          type: elasticsearch
+          healthcheck: true
+          api_version: v7
+          endpoints:
+            - "https://opensearch-cluster-master.logging:9200"
+          tls:
+            verify_certificate: false
+            verify_hostname: false
+          mode: data_stream
+          # index pattern: type-dataset-namespace
+          data_stream:
+            type: "logs"
+            namespace: 'falco'
+            dataset: ""
+          auth:
+            strategy: basic
+            user: "admin"
+            password: "myStrongPassword123@456"
+          request:
+            concurrency: adaptive

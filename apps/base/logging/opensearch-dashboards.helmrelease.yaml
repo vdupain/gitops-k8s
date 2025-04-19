@@ -1,0 +1,38 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: opensearch-dashboards
+  namespace: logging
+spec:
+  chart:
+    spec:
+      chart: opensearch-dashboards
+      sourceRef:
+        kind: HelmRepository
+        name: opensearch
+        namespace: flux-system
+      version: 2.28.0
+  interval: 15m
+  timeout: 5m
+  releaseName: opensearch-dashboards
+
+  values:
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: le-prod
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: "Opensearch"
+        gethomepage.dev/group: "Observability"
+      hosts:
+        - host: ${opensearchIngressHost}
+          paths:
+            - path: /
+              backend:
+                serviceName: "opensearch-dashboards"
+                servicePort: "http"
+      tls:
+        - secretName: opensearch-dashboards-tls
+          hosts:
+            - ${opensearchIngressHost}
