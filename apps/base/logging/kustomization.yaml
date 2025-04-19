@@ -8,5 +8,5 @@ resources:
 - opensearch.sealedsecret.yaml
 - post-config.configmap.yaml
 - post-config.job.yaml
-- vector.agent.yaml
 - vector.sealedsecret.yaml
+- vector.agent.yaml
