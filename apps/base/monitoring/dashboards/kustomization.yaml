@@ -14,3 +14,9 @@ configMapGenerator:
   options:
     annotations:
       grafana_folder: "System"
+
+- name: grafana-dashboard-opensearch
+  files: [ opensearch.json]
+  options:
+    annotations:
+      grafana_folder: "Observability"
