@@ -27,3 +27,25 @@ spec:
     persistence:
       enabled: true
       size: 5Gi
+
+    extraVolumes:
+      - name: opensearch-prometheus-exporter-plugin
+        configMap:
+          name: opensearch-prometheus-exporter-plugin
+
+    extraVolumeMounts:
+      - name: opensearch-prometheus-exporter-plugin
+        mountPath: /tmp/plugins
+        readOnly: false
+
+    plugins:
+      enabled: true
+      installList:
+        - file:/tmp/plugins/prometheus-exporter-2.17.1.0-patched.zip
+
+    serviceMonitor:
+      enabled: true
+      interval: 30s
+      basicAuth:
+        enabled: true
+        existingSecret: prometheus-secret
