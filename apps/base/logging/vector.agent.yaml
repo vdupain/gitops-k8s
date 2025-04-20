@@ -77,7 +77,7 @@ spec:
             dataset: "k8s"
           auth:
             strategy: basic
-            user: ${VECTOR_USERNAME}
-            password: ${VECTOR_PASSWORD}
+            user: admin #${VECTOR_USERNAME}
+            password: myStrongPassword123@456 #${VECTOR_PASSWORD}
           request:
             concurrency: adaptive
