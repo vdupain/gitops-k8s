@@ -22,7 +22,7 @@ spec:
               mountPath: /scripts
           envFrom:
             - secretRef:
-                name: opensearch-secrets
+                name: opensearch-secret
           env:
             - name: OPENSEARCH_SERVER
               value: https://opensearch-cluster-master:9200
