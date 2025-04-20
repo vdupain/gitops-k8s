@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: opensearch-service-monitor
+  namespace: logging
+spec:
+  endpoints:
+  - basicAuth:
+      password:
+        key: password
+        name: prometheus-secret
+      username:
+        key: username
+        name: prometheus-secret
+    interval: 30s
+    path: /_prometheus/metrics
+    port: http
+    scheme: https
+    tlsConfig:
+      insecureSkipVerify: true
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: opensearch
+      app.kubernetes.io/name: opensearch
