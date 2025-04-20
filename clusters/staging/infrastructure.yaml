@@ -41,11 +41,11 @@ spec:
       clusterName: "staging"
       corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.215"
       traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.216"
-      externalDnsDomainFilter: "staging.k8s.vincentdupain.com"
-      alertmanagerIngressHost: "alertmanager.staging.k8s.vincentdupain.com"
-      grafanaIngressHost: "grafana.staging.k8s.vincentdupain.com"
-      prometheusIngressHost: "prometheus.staging.k8s.vincentdupain.com"
-      sealedSecretsIngressHost: "sealedsecrets.staging.k8s.vincentdupain.com"
+      externalDnsDomainFilter: "staging.vincentdupain.com"
+      alertmanagerIngressHost: "alertmanager.staging.vincentdupain.com"
+      grafanaIngressHost: "grafana.staging.vincentdupain.com"
+      prometheusIngressHost: "prometheus.staging.vincentdupain.com"
+      sealedSecretsIngressHost: "sealedsecrets.staging.vincentdupain.com"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
