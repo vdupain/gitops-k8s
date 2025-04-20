@@ -6,7 +6,9 @@ resources:
 - opensearch.helmrelease.yaml
 - opensearch.helmrepo.yaml
 - opensearch.sealedsecret.yaml
+- opensearch.servicemonitor.yaml
 - post-config.configmap.yaml
 - post-config.job.yaml
-- vector.sealedsecret.yaml
+- prometheus.sealedsecret.yaml
 - vector.agent.yaml
+- vector.sealedsecret.yaml
