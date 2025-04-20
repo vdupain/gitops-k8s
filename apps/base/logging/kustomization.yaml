@@ -12,4 +12,4 @@ resources:
 - prometheus.sealedsecret.yaml
 - vector.agent.yaml
 - vector.sealedsecret.yaml
-#- plugins
+- plugins
