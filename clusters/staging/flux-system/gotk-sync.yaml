@@ -12,6 +12,8 @@ spec:
   secretRef:
     name: flux-system
   url: https://github.com/vdupain/gitops-k8s.git
+  ignore: |
+    /no-flux
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
