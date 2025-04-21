@@ -15,9 +15,10 @@ spec:
   prune: true
   wait: true
   postBuild:
-    substitute:
-      ciliumLoadBalancerIPPoolBlockStart: "192.168.10.215"
-      ciliumLoadBalancerIPPoolBlockStop: "192.168.10.220"
+    substituteFrom:
+      - kind: ConfigMap
+        name: infra-vars
+        optional: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -37,15 +38,10 @@ spec:
   prune: true
   wait: true
   postBuild:
-    substitute:
-      clusterName: "staging"
-      corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.215"
-      traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.216"
-      externalDnsDomainFilter: "staging.vincentdupain.com"
-      alertmanagerIngressHost: "alertmanager.staging.vincentdupain.com"
-      grafanaIngressHost: "grafana.staging.vincentdupain.com"
-      prometheusIngressHost: "prometheus.staging.vincentdupain.com"
-      sealedSecretsIngressHost: "sealedsecrets.staging.vincentdupain.com"
+    substituteFrom:
+      - kind: ConfigMap
+        name: infra-vars
+        optional: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
