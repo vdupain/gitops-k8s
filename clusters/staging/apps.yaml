@@ -16,12 +16,7 @@ spec:
   prune: true
   wait: true
   postBuild:
-    substitute:
-      flowiseIngressHost: "flowise.staging.vincentdupain.com"
-      homepageIngressHost: "homepage.staging.vincentdupain.com"
-      n8nIngressHost: "n8n.staging.vincentdupain.com"
-      ollamaIngressHost: "ollama.staging.vincentdupain.com"
-      opensearchIngressHost: "logging.staging.vincentdupain.com"
-      openwebuiIngressHost: "open-webui.staging.vincentdupain.com"
-      podinfoIngressHost: "podinfo.staging.vincentdupain.com"
-      qdrantIngressHost: "qdrant.staging.vincentdupain.com"
+    substituteFrom:
+      - kind: ConfigMap
+        name: apps-vars
+        optional: false
