@@ -114,7 +114,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra-controllers
+    - name: infra-controllers-security
   interval: 1h
   retryInterval: 1m
   timeout: 5m
