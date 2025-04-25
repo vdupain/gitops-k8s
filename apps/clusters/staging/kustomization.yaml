@@ -5,7 +5,7 @@ resources:
   - ../../base/homepage
   - ../../base/logging
   - ../../base/monitoring
-  - ../../base/podinfo
+#  - ../../base/podinfo
 #  - ../../base/postgresql
 #  - ../../base/ai/open-webui
 #  - ../../base/n8n
