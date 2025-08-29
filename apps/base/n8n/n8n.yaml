@@ -32,9 +32,7 @@ spec:
 
   values:
     db:
-      type: postgresdb
-    postgresql:
-      enabled: true
+      type: sqlite
         
     ingress:
       enabled: true
