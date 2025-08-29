@@ -9,11 +9,11 @@ metadata:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: bitnami
+  name: external-dns
   namespace: flux-system
 spec:
   interval: 24h
-  url: https://charts.bitnami.com/bitnami
+  url: https://kubernetes-sigs.github.io/external-dns/
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -25,19 +25,15 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 9.0.3
+      version: 1.18.0
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: external-dns
         namespace: flux-system
       interval: 12h
   releaseName: external-dns
 
   values:
-    crd:
-      ## @param crd.create Install and use the integrated DNSEndpoint CRD
-      ##
-      create: true
     sources:
       - crd
       - service
@@ -50,7 +46,8 @@ spec:
     txtOwnerId: "k8s"
     domainFilters:
       - ${externalDnsDomainFilter}
-    provider: coredns
-    coredns:
-      etcdEndpoints: "http://etcd.etcd.svc.cluster.local:2379"
+    provider:
+      name: coredns
+      coredns:
+        etcdEndpoints: "http://etcd.etcd.svc.cluster.local:2379"
 
