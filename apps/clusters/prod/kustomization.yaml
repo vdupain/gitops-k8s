@@ -3,10 +3,10 @@ kind: Kustomization
 resources:
   - ../../base/ai/flowise
   - ../../base/ai/qdrant
+  - ../../base/cnpg
   - ../../base/homepage
 #  - ../../base/logging
   - ../../base/monitoring
   - ../../base/podinfo
-#  - ../../base/postgresql
 #  - ../../base/ai/open-webui
   - ../../base/n8n
