@@ -66,6 +66,7 @@ spec:
         externalLabels:
           cluster: ${clusterName}
         serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
         storageSpec:
           volumeClaimTemplate:
             spec:
