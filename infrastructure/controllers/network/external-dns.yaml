@@ -48,6 +48,7 @@ spec:
       - ${externalDnsDomainFilter}
     provider:
       name: coredns
-      coredns:
-        etcdEndpoints: "http://etcd.etcd.svc.cluster.local:2379"
+    env:
+    - name: ETCD_URLS
+      value: http://etcd.etcd.svc.cluster.local:2379
 
