@@ -1,0 +1,48 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-cluster-example
+  namespace: cloudnative-pg
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.0
+  
+  # Example of rolling update strategy:
+  # - unsupervised: automated update of the primary once all
+  #                 replicas have been upgraded (default)
+  # - supervised: requires manual supervision to perform
+  #               the switchover of the primary
+  primaryUpdateStrategy: unsupervised
+
+  storage:
+    size: 1Gi
+  # backup:
+  #   barmanObjectStore:
+  #     destinationPath: s3://cnpg-backup/
+  #     endpointURL: http://s3.s3.svc.cluster.local:9000/
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: s3-pg-backup
+  #         key: AWS_ACCESS_KEY_ID
+  #       secretAccessKey:
+  #         name: s3-pg-backup
+  #         key: AWS_SECRET_ACCESS_KEY
+  #   retentionPolicy: 7d
+ 
+  monitoring:
+    enablePodMonitor: true
+
+  # exemple pour exposer la db en dehors du cluster k8s par un service LB
+  managed:
+    services:
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: "pg-cluster-example-rw-lb"
+              # annotations:
+              #   external-dns.alpha.kubernetes.io/hostname: ${pgExampleHostname}
+            spec:
+              type: LoadBalancer    
+
