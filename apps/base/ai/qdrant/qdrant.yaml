@@ -39,9 +39,11 @@ spec:
         gethomepage.dev/name: "Qdrant"
         gethomepage.dev/group: "Apps"
       hosts:
-         - host: ${qdrantIngressHost}
-           paths:
-             - /
+        - host: ${qdrantIngressHost}
+          paths:
+            - path: /
+              pathType: Prefix
+              servicePort: 6333
       tls:
         - secretName: qdrant-tls
           hosts:
