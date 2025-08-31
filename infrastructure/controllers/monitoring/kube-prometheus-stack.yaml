@@ -95,7 +95,7 @@ spec:
       sidecar:
         datasources:
           alertmanager:
-            handleGrafanaManagedAlerts: false
+            handleGrafanaManagedAlerts: true
         dashboards:
           enabled: true
           defaultFolderName: "General"
