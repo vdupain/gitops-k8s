@@ -11,7 +11,7 @@ spec:
     - name: infra-configs
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: apps
   path: ./apps/clusters/prod
   prune: true
   wait: true
