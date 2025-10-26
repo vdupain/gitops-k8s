@@ -36,6 +36,7 @@ spec:
         value: "200mb"
     persistence:
       enabled: true
+      size: 2Gi
     ingress:
       enabled: true
       annotations:
