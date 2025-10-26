@@ -23,7 +23,7 @@ spec:
   chart:
     spec:
       chart: n8n
-      version: 1.15.2
+      version: 1.15.17
       sourceRef:
         kind: HelmRepository
         name: n8n
@@ -32,8 +32,14 @@ spec:
 
   values:
     db:
-      type: sqlite
-        
+      type: postgresdb
+
+    externalPostgresql:
+      host: "pg-cluster-n8n-rw.n8n.svc.cluster.local"
+      username: "n8n"
+      password: "n8n"
+      database: "n8n"
+
     ingress:
       enabled: true
       annotations:
