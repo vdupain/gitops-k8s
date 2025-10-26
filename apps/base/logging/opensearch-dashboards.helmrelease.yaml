@@ -24,6 +24,7 @@ spec:
         cert-manager.io/cluster-issuer: le-prod
         gethomepage.dev/enabled: "true"
         gethomepage.dev/name: "Opensearch"
+        gethomepage.dev/icon: "si-opensearch"
         gethomepage.dev/group: "Observability"
       hosts:
         - host: ${opensearchIngressHost}
