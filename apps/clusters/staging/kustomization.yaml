@@ -4,7 +4,7 @@ resources:
 #  - ../../base/ai/flowise
   - ../../base/cnpg
   - ../../base/homepage
-  - ../../base/logging
+#  - ../../base/logging
   - ../../base/monitoring
 #  - ../../base/podinfo
 #  - ../../base/ai/open-webui
