@@ -22,8 +22,6 @@ kind: HelmRelease
 metadata:
   name: prometheus
   namespace: monitoring
-  annotations:
-    kustomize.toolkit.fluxcd.io/reconcile: disabled
 spec:
   interval: 30m
   chart:
