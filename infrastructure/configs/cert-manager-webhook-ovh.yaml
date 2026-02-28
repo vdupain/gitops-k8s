@@ -27,7 +27,6 @@ spec:
       interval: 12h
 
   values:
-    configVersion: 0.0.1
     groupName: acme.vincentdupain.com
     issuers:
       - name: le-prod
@@ -38,6 +37,7 @@ spec:
         acmeServerUrl: https://acme-v02.api.letsencrypt.org/directory
         email: vince9p+acme@pm.me
         ovhEndpointName: ovh-eu
+        ovhAuthenticationMethod: application
         ovhAuthenticationRef:
           applicationKeyRef:
             name: ovh-credentials
@@ -45,7 +45,7 @@ spec:
           applicationSecretRef:
             name: ovh-credentials
             key: applicationSecret
-          consumerKeyRef:
+          applicationConsumerKeyRef:
             name: ovh-credentials
             key: consumerKey
       - name: le-staging
@@ -56,6 +56,7 @@ spec:
         acmeServerUrl: https://acme-staging-v02.api.letsencrypt.org/directory
         email: vince9p+acme@pm.me
         ovhEndpointName: ovh-eu
+        ovhAuthenticationMethod: application
         ovhAuthenticationRef:
           applicationKeyRef:
             name: ovh-credentials
@@ -63,6 +64,6 @@ spec:
           applicationSecretRef:
             name: ovh-credentials
             key: applicationSecret
-          consumerKeyRef:
+          applicationConsumerKeyRef:
             name: ovh-credentials
             key: consumerKey
