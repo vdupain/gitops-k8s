@@ -53,13 +53,6 @@ spec:
         name: coredns
     - patch: |
         - op: replace
-          path: /spec/values/controller/service/annotations/io.cilium~1lb-ipam-ips
-          value: 192.168.10.217
-      target:
-        kind: HelmRelease
-        name: ingress-nginx
-    - patch: |
-        - op: replace
           path: /spec/values/service/annotations/io.cilium~1lb-ipam-ips
           value: 192.168.10.216
       target:

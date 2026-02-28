@@ -125,6 +125,8 @@ spec:
       enabled: true
       sidecar:
         datasources:
+          label: grafana_datasource
+          labelValue: "1"
           alertmanager:
             handleGrafanaManagedAlerts: true
         dashboards:

@@ -4,6 +4,5 @@ resources:
 - coredns.yaml
 - etcd.yaml
 - external-dns.yaml
-#- ingress-nginx.yaml
 - ingress-traefik.yaml
 
