@@ -1,0 +1,75 @@
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cart-api
+  annotations:
+    linkerd.io/inject: enabled
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cart-api
+    app.kubernetes.io/name: cart-api
+  name: cart-api
+  namespace: cart-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart-api
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: cart-api
+    spec:
+      containers:
+      - image: vimuchiaroni/cart-api:1.2
+        name: cart-api
+        ports:
+          - name: http
+            containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8000
+            scheme: HTTP
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8000
+            scheme: HTTP
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        env:
+          - name: SAVE_TO_DB
+            value: "true"
+          - name: MONGO_URL
+            value: "mongodb://mongodb.mongodb:27017/"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cart-api
+    app.kubernetes.io/name: cart-api
+  name: cart-api
+  namespace: cart-api
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: cart-api
+  type: ClusterIP

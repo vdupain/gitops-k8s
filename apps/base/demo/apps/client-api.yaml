@@ -1,0 +1,71 @@
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: client-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: client-api
+    app.kubernetes.io/name: client-api
+  name: client-api
+  namespace: client-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-api
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: client-api
+    spec:
+      containers:
+      - image: vimuchiaroni/client-api:1.2
+        name: client-api
+        ports:
+          - name: http
+            containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8000
+            scheme: HTTP
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8000
+            scheme: HTTP
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        env:
+          - name: CART_SERVICE_URL
+            value: 'http://cart-api.cart-api.svc.cluster.local:8000'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: client-api
+    app.kubernetes.io/name: client-api
+  name: client-api
+  namespace: client-api
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: client-api
+  type: ClusterIP
