@@ -35,7 +35,7 @@ spec:
     persistence:
       enabled: true
       size: 1Gi
-      # storageClassName: zfs
+      storageClassName: zfs
     tempo:
       image:
         registry: harbor.oodrive.net/docker
