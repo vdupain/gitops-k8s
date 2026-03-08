@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nvidia-device-plugin
+  namespace: nvidia-device-plugin
+spec:
+  interval: 30m
+  timeout: 10m
+  chart:
+    spec:
+      chart: nvidia-device-plugin
+      version: 0.16.2
+      sourceRef:
+        kind: HelmRepository
+        name: nvdp
+        namespace: flux-system
+      interval: 12h
+
+  values:
+    gfd:
+      enabled: true
+    config:
+      map:
+        default: |-
+          version: v1
+          flags:
+            migStrategy: "none"
+            failOnInitError: true
+            nvidiaDriverRoot: "/"
+            plugin:
+              passDeviceSpecs: false
+              deviceListStrategy: "envvar"
+              deviceIDStrategy: "uuid"

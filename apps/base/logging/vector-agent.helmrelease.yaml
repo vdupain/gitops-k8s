@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vector-agent
+  namespace: logging
+spec:
+  chart:
+    spec:
+      chart: vector
+      sourceRef:
+        kind: HelmRepository
+        name: vector
+        namespace: flux-system
+      version: 0.42.1
+      interval: 12h
+  interval: 30m
+  timeout: 10m
+  releaseName: vector-agent
+
+  values:
+    role: Agent
+    service:
+      enabled: false
+    serviceHeadless:
+      enabled: false
+    env:
+      - name: VECTOR_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: vector-secret
+            key: VECTOR_USERNAME
+      - name: VECTOR_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: vector-secret
+            key: VECTOR_PASSWORD
+    customConfig:
+      data_dir: "/vector-data-dir"
+      api:
+        enabled: false
+      sources:
+        k8s_logs:
+          type: kubernetes_logs
+      transforms:
+        add_namespace:
+          type: "remap"
+          inputs:
+            - k8s_logs
+          source: |
+            .namespace = .kubernetes.pod_namespace
+      sinks:
+        opensearch:
+          inputs:
+            - add_namespace
+          type: elasticsearch
+          healthcheck: true
+          api_version: v7
+          endpoints:
+            - "https://opensearch-cluster-master:9200"
+          tls:
+            verify_certificate: false
+            verify_hostname: false
+          mode: data_stream
+          # index pattern: type-dataset-namespace
+          data_stream:
+            type: "logs"
+            namespace: '{{"{{"}}namespace{{"}}"}}'
+            dataset: "k8s"
+          auth:
+            strategy: basic
+            user: admin #${VECTOR_USERNAME}
+            password: myStrongPassword123@456 #${VECTOR_PASSWORD}
+          request:
+            concurrency: adaptive

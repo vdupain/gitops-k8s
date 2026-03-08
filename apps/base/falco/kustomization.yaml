@@ -1,9 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- custom-rules.configmap.yaml
-- falco.values.configmap.yaml
-- falco.yaml
-- fluent.values.configmap.yaml
-- fluent.yaml
+- falco-rules.configmap.yaml
+- falco-values.configmap.yaml
+- falco.namespace.yaml
+- falco.helmrepository.yaml
+- falco.helmrelease.yaml
+- fluent-values.configmap.yaml
+- fluent.helmrepository.yaml
+- fluent.helmrelease.yaml
 - vector-falcosidekick.helmrelease.yaml

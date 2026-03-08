@@ -1,4 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- cnpg.yaml
+- cloudnative-pg.namespace.yaml
+- cloudnative-pg.helmrepository.yaml
+- cloudnative-pg.helmrelease.yaml

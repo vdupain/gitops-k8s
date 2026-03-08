@@ -1,0 +1,25 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: zfs-localpv
+  namespace: zfs-system
+spec:
+  interval: 30m
+  timeout: 10m
+  chart:
+    spec:
+      chart: zfs-localpv
+      version: 2.10.0-develop
+      sourceRef:
+        kind: HelmRepository
+        name: zfs-localpv
+        namespace: flux-system
+      interval: 12h
+  releaseName: zfs-localpv
+
+  values:
+    zfsNode:
+      # par défaut clés de chiffrement utilisées par ZFS dans /home, qui est immutable dans Talos
+      # configuration vers un autre répertoire (même si on n'utilise pas les fonctionalités de chiffrement de ZFS)
+      encrKeysDir: /var/zfsencrkeys

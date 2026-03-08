@@ -1,8 +1,16 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- coredns.yaml
-- etcd.yaml
-- external-dns.yaml
-- ingress-traefik.yaml
+- coredns.namespace.yaml
+- coredns.helmrepository.yaml
+- coredns.helmrelease.yaml
+- etcd.namespace.yaml
+- cloudpirates.helmrepository.yaml
+- etcd.helmrelease.yaml
+- external-dns.namespace.yaml
+- external-dns.helmrepository.yaml
+- external-dns.helmrelease.yaml
+- traefik.namespace.yaml
+- traefik.helmrepository.yaml
+- traefik.helmrelease.yaml
 

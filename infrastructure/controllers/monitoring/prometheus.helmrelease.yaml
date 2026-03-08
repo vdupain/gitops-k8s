@@ -1,0 +1,142 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 82.4.3
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      interval: 12h
+
+  values:
+    crds:
+      enabled: true
+      upgradeJob:
+        enabled: true
+        forceConflicts: true
+    alertmanager:
+      enabled: true
+      alertmanagerSpec:
+        alertmanagerConfigSelector:
+          matchLabels:
+            alertmanager: config
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: le-prod
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "Alertmanager"
+          gethomepage.dev/icon: "si-prometheus"
+          gethomepage.dev/group: "Observability"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=alertmanager"
+        hosts:
+          - ${alertmanagerIngressHost}
+        path: /
+        tls:
+          - secretName: alertmanager-tls
+            hosts:
+            - ${alertmanagerIngressHost}
+    prometheus:
+      prometheusSpec:
+        externalLabels:
+          cluster: ${clusterName}
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: zfs
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 5Gi
+        # https://prometheus.io/docs/guides/opentelemetry/
+        enableRemoteWriteReceiver: true
+        enableOTLPReceiver: true
+        otlp:
+          promoteResourceAttributes:
+            - service.instance.id
+            - service.name
+            - service.namespace
+            - service.version
+            - cloud.availability_zone
+            - cloud.region
+            - container.name
+            - deployment.environment
+            - deployment.environment.name
+            - k8s.cluster.name
+            - k8s.container.name
+            - k8s.cronjob.name
+            - k8s.daemonset.name
+            - k8s.deployment.name
+            - k8s.job.name
+            - k8s.namespace.name
+            - k8s.pod.name
+            - k8s.replicaset.name
+            - k8s.statefulset.name
+          translationStrategy: UnderscoreEscapingWithoutSuffixes
+          keepIdentifyingResourceAttributes: true
+        tsdb:
+          outOfOrderTimeWindow: 30m
+
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: le-prod
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "Prometheus"
+          gethomepage.dev/icon: "si-prometheus"
+          gethomepage.dev/group: "Observability"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=prometheus"
+        hosts:
+          - ${prometheusIngressHost}
+        path: /
+        tls:
+          - secretName: prometheus-tls
+            hosts:
+            - ${prometheusIngressHost}
+    grafana:
+      enabled: true
+      sidecar:
+        datasources:
+          label: grafana_datasource
+          labelValue: "1"
+          alertmanager:
+            handleGrafanaManagedAlerts: true
+        dashboards:
+          enabled: true
+          defaultFolderName: "General"
+          label: grafana_dashboard
+          labelValue: "1"
+          folderAnnotation: grafana_folder
+          searchNamespace: ALL
+          provider:
+            foldersFromFilesStructure: true
+      persistence:
+        enabled: true
+        size: 1Gi
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: le-prod
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/name: "Grafana"
+          gethomepage.dev/icon: "si-grafana"
+          gethomepage.dev/group: "Observability"
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=grafana"
+        hosts:
+          - ${grafanaIngressHost}
+        path: /
+        tls:
+          - secretName: grafana-tls
+            hosts:
+            - ${grafanaIngressHost}

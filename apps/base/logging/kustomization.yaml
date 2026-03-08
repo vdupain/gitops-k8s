@@ -4,12 +4,13 @@ resources:
 - logging.namespace.yaml
 - opensearch-dashboards.helmrelease.yaml
 - opensearch.helmrelease.yaml
-- opensearch.helmrepo.yaml
+- opensearch.helmrepository.yaml
 - opensearch.sealedsecret.yaml
 - opensearch.servicemonitor.yaml
 - post-config.configmap.yaml
 - post-config.job.yaml
 - prometheus.sealedsecret.yaml
-- vector.agent.yaml
+- vector.helmrepository.yaml
+- vector-agent.helmrelease.yaml
 - vector.sealedsecret.yaml
 - plugins

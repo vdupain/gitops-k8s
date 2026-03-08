@@ -7,7 +7,7 @@
 
 ## Update rules
 
-```
-kubectl apply -f custom-rules.configmap.yaml
+``` sh
+kubectl apply -f falco-rules.configmap.yaml
 kubectl rollout restart daemonset falco -n falco
 ```
