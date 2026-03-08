@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: scaphandre
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  scrapeInterval: 30s
+  metricsPath: /metrics
+  fallbackScrapeProtocol: PrometheusText1.0.0
+  staticConfigs:
+    - targets:
+        - 192.168.10.10:9898
+      labels:
+        pve_node: pve0
+    - targets:
+        - 192.168.10.11:9898
+      labels:
+        pve_node: pve1
+    - targets:
+        - 192.168.10.12:9898
+      labels:
+        pve_node: pve2
+    - targets:
+        - 192.168.10.13:9898
+      labels:
+        pve_node: pve3
+    - targets:
+        - 192.168.10.14:9898
+      labels:
+        pve_node: pve4

@@ -3,6 +3,5 @@ kind: Kustomization
 resources:
 - n8n-config.alertmanagerconfig.yaml
 - blackbox.helmrelease.yaml
-- scaphandre.service.yaml
-- scaphandre.servicemonitor.yaml
+- scaphandre.scrapeconfig.yaml
 - dashboards
