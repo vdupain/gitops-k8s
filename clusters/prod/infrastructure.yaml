@@ -94,7 +94,7 @@ spec:
     - name: infra-controllers-network
   interval: 1h
   retryInterval: 1m
-  timeout: 5m
+  timeout: 20m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -110,7 +110,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-configs
+  name: infra-security-config
   namespace: flux-system
 spec:
   dependsOn:
@@ -121,8 +121,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/configs
+  path: ./infrastructure/security-config
   prune: true
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -131,7 +132,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra-configs
+    - name: infra-security-config
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -140,3 +141,4 @@ spec:
     name: flux-system
   path: ./infrastructure/controllers/cnpg
   prune: true
+  wait: true
