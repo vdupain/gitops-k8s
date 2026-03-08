@@ -22,6 +22,7 @@ metadata:
   namespace: external-dns
 spec:
   interval: 30m
+  timeout: 10m
   chart:
     spec:
       chart: external-dns

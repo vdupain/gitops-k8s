@@ -22,8 +22,9 @@ spec:
         name: vector
         namespace: flux-system
       version: 0.42.1
-  interval: 15m
-  timeout: 5m
+      interval: 12h
+  interval: 30m
+  timeout: 10m
   releaseName: vector-agent
 
   values:

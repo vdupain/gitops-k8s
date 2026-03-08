@@ -12,8 +12,9 @@ spec:
         name: vector
         namespace: flux-system
       version: 0.36.1
-  interval: 15m
-  timeout: 5m
+      interval: 12h
+  interval: 30m
+  timeout: 10m
   releaseName: vector-falcosidekick
 
   values:
