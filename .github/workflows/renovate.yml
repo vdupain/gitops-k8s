@@ -12,4 +12,5 @@ jobs:
       - uses: renovatebot/github-action@v41.0.0
         with:
           configurationFile: renovate.json5
+          autodiscover: true
           token: ${{ secrets.RENOVATE_TOKEN }}

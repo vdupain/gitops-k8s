@@ -4,9 +4,6 @@
   labels: ["dependencies"],
   timezone: "Europe/Paris",
   schedule: ["before 9am on monday"],
-  flux: {
-    fileMatch: ["**/*.helmrelease.yaml"],
-  },
   packageRules: [
     {
       description: "Ignorer gotk-components.yaml (auto-généré par flux bootstrap)",
