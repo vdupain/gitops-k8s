@@ -112,15 +112,6 @@ spec:
           labelValue: "1"
           alertmanager:
             handleGrafanaManagedAlerts: true
-        dashboards:
-          enabled: true
-          defaultFolderName: "General"
-          label: grafana_dashboard
-          labelValue: "1"
-          folderAnnotation: grafana_folder
-          searchNamespace: ALL
-          provider:
-            foldersFromFilesStructure: true
       persistence:
         enabled: true
         size: 1Gi
