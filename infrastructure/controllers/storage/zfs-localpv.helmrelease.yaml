@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: zfs-localpv
-      version: 2.11.0
+      version: 2.10.1
       sourceRef:
         kind: HelmRepository
         name: zfs-localpv
@@ -23,3 +23,4 @@ spec:
       # par défaut clés de chiffrement utilisées par ZFS dans /home, qui est immutable dans Talos
       # configuration vers un autre répertoire (même si on n'utilise pas les fonctionalités de chiffrement de ZFS)
       encrKeysDir: /var/zfsencrkeys
+
