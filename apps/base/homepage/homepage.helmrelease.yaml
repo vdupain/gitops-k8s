@@ -29,6 +29,10 @@ spec:
     # This enables the service account to access the necessary resources
     enableRbac: true
 
+    extraEnvVars:
+      - name: HOMEPAGE_ALLOWED_HOSTS
+        value: "${homepageIngressHost}"
+
     ingress:
       main:
         enabled: true
