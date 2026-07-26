@@ -29,7 +29,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-controllers
+  name: infra-controllers-storage
   namespace: flux-system
 spec:
   dependsOn:
@@ -40,9 +40,32 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/controllers
+  path: ./infrastructure/controllers/storage
   prune: true
   wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-controllers-network
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-controllers-storage
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/controllers/network
+  prune: true
+  wait: true
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: infra-vars
+        optional: false
   patches:
     - patch: |
         - op: replace
@@ -62,11 +85,34 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: infra-controllers-security
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-controllers-network
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/controllers/security
+  prune: true
+  wait: true
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: infra-vars
+        optional: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: infra-security-config
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra-controllers
+    - name: infra-controllers-security
   interval: 1h
   retryInterval: 1m
   timeout: 5m
