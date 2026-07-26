@@ -107,6 +107,7 @@ spec:
     grafana:
       enabled: true
       sidecar:
+        chownData: false
         datasources:
           label: grafana_datasource
           labelValue: "1"
