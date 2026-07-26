@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+data:
+  vm_count: "2"
+  vm_cpu_cores_number: "1"
+  vm_cpu_type:  "host"
+  vm_disk_size: "20"
+  vm_memory_max: "1024"
+  vm_name: "rocky"
+  vm_hostname: "rocky"
+  vm_socket_number: "1"
+  vm_datastore_id: "local-zfs"
+  vm_ip_offset: "50"
+kind: ConfigMap
+metadata:
+  name: rocky-config
+  namespace: flux-system

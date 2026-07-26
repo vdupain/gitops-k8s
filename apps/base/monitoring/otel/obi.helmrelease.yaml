@@ -1,0 +1,52 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: obi
+  namespace: otel
+spec:
+  interval: 30m
+  timeout: 10m
+  chart:
+    spec:
+      chart: opentelemetry-ebpf-instrumentation
+      version: 0.4.3
+      sourceRef:
+        kind: HelmRepository
+        name: open-telemetry
+        namespace: flux-system
+      interval: 12h
+
+  values:
+    env:
+      OTEL_EBPF_KUBE_CLUSTER_NAME: "staging"
+    config:
+      data:
+        metrics:
+          features:
+            - 'application' # Application-level metrics
+            - 'application_span_otel' # Application-level trace span metrics in OpenTelemetry format (like traces_span_metrics_calls_total)
+            - 'application_service_graph' #  Application-level service graph metrics
+        discovery:
+          instrument:
+            - k8s_namespace: petclinic
+            - k8s_namespace: podinfo
+        routes:
+          ignore_mode: traces
+          ignored_patterns:
+            - /{webcontext}/manage/health/readiness
+            - /{webcontext}/manage/prometheus
+            - /health
+            - /healthz
+            - /livez
+            - /ready
+            - /readyz
+        ebpf:
+          context_propagation: 'all'
+        log_level: info
+        otel_traces_export:
+          endpoint: "http://otel-gateway-opentelemetry-collector.otel:4318"
+        otel_metrics_export:
+          endpoint: "http://otel-gateway-opentelemetry-collector.otel:4318"
+        attributes:
+          kubernetes:
+            enable: true

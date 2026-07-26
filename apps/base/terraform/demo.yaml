@@ -1,0 +1,64 @@
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: demo-cluster
+  namespace: flux-system
+spec:
+  interval: 1m
+  approvePlan: "auto"
+  destroyResourcesOnDeletion: true
+  sourceRef:
+    kind: GitRepository
+    name: terraform-proxmox-talos-k8s-cluster
+    namespace: flux-system
+  writeOutputsToSecret:
+    name: demo-cluster-output
+    outputs:
+    - kube_config
+    - talos_config
+  runnerPodTemplate:
+    spec:
+      env:
+        - name: PROXMOX_VE_SSH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: proxmox-pve-credentials
+              key: ssh_username
+        - name: PROXMOX_VE_SSH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: proxmox-pve-credentials
+              key: ssh_password
+        - name: PROXMOX_VE_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: proxmox-pve-credentials
+              key: api_token
+  vars:
+  - name: proxmox
+    value:
+      endpoint: "https://pve4.home:8006"
+      insecure: true
+  - name: cluster
+    value:
+      name: "demo"
+      network_dhcp : true
+  - name: vms
+    value:
+      cp-0:
+        host_node:      "pve4"
+        machine_type:   "controlplane"
+        cpu:            4
+        ram_dedicated:  4096
+        os_disk_size:   10
+        data_disk_size: 10
+        datastore_id:   "local-zfs"
+      cp-1:
+        host_node:      "pve4"
+        machine_type:   "controlplane"
+        cpu:            4
+        ram_dedicated:  4096
+        os_disk_size:   10
+        data_disk_size: 10
+        datastore_id:   "local-zfs"

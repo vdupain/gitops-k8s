@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  validate-k8s-manifests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Set up kube tools
+        uses: yokawasa/action-setup-kube-tools@8b80cfd0b82740333ad8b07f7e6579a26b9adce9 # v0.11.2
+        with:
+          kustomize: '5.6.0'
+          kubeconform: '0.6.7'
+          yq: '4.44.3'
+        
+      - name: Run validate script
+        run: ./scripts/validate.sh

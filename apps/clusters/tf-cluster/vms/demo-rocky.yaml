@@ -1,0 +1,45 @@
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: demo-rocky-vms
+  namespace: flux-system
+spec:
+  interval: 1m
+  approvePlan: "auto"
+  destroyResourcesOnDeletion: true
+  path: ./1-vms/rocky
+  sourceRef:
+    kind: GitRepository
+    name: gitops-iac
+    namespace: flux-system
+  runnerPodTemplate:
+    spec:
+      env:
+        - name: PROXMOX_VE_SSH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: proxmox-pve1-secrets
+              key: ssh_username
+        - name: PROXMOX_VE_SSH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: proxmox-pve1-secrets
+              key: ssh_password
+        - name: PROXMOX_VE_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: proxmox-pve1-secrets
+              key: api_token  
+  vars: 
+  - name: pve_nodes 
+    value:
+      - "pve1"
+      - "pve2"
+  - name: proxmox
+    value:
+      endpoint: "https://pve0.home:8006"
+      insecure: true
+  varsFrom:
+  - kind: ConfigMap
+    name: rocky-config
