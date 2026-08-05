@@ -90,3 +90,17 @@ Storage class `zfs` (OpenEBS ZFS LocalPV) is the default.
 kubectl -n flux-system get secrets demo-pve1-cluster-output -o jsonpath='{.data.kube_config}' | base64 --decode > /tmp/demo-pve1-cluster.yaml
 kubectl --kubeconfig /tmp/demo-pve1-cluster.yaml get pods -A
 ```
+
+## Agent skills
+
+### Issue tracker
+
+Les issues et specs vivent sur GitHub Issues (CLI `gh`). Voir `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Labels de triage : `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. Voir `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Multi-context : `CONTEXT-MAP.md` racine → un `CONTEXT.md` par domaine (apps, infrastructure, clusters). Décisions système dans `docs/adr/`. Voir `docs/agents/domain.md`.
