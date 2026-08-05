@@ -1,14 +1,14 @@
 # AGENTS.md
 
-Guide de référence pour les agents IA travaillant sur ce dépôt.
+Reference guide for AI agents working on this repository.
 
 ## Stack
 
 - **GitOps** : Flux CD (v2.7.5) + Kustomize
 - **Clusters** : 4 (prod, staging, gpu-cluster, tf-cluster)
-- **Secrets** : Bitnami SealedSecrets (fichiers `.sealedsecret.yaml`)
+- **Secrets** : Bitnami SealedSecrets (files `.sealedsecret.yaml`)
 - **CI** : GitHub Actions (`.github/workflows/main.yml`)
-- **Domaine** : `*.homelab.vincentdupain.com` (prod), `*.staging.vincentdupain.com` (staging)
+- **Domain** : `*.homelab.vincentdupain.com` (prod), `*.staging.vincentdupain.com` (staging)
 
 ## Validation
 
@@ -18,7 +18,7 @@ Guide de référence pour les agents IA travaillant sur ce dépôt.
 
 Prerequisites: `yq` v4.34+, `kustomize` v5.3+, `kubeconform` v0.6+
 
-Le script skippe les Secrets (champs SealedSecret non valides en schéma).
+The script skips Secrets (SealedSecret fields not valid in the schema).
 
 ## Architecture
 
@@ -27,19 +27,19 @@ clusters/<cluster>/            # Flux bootstrap + entrypoint Kustomizations
   flux-system/
     gotk-components.yaml       # Flux controllers
     gotk-sync.yaml             # Root GitRepository + Kustomization
-  infrastructure.yaml          # Flux Kustomization CRs en dépendance chaînée
+  infrastructure.yaml          # Flux Kustomization CRs in chained dependency
   apps.yaml                    # Flux Kustomization CR → apps/clusters/<cluster>/
-  infrastructure.configmap.yaml# Variables infra (IPs, nom du cluster)
-  apps.configmap.yaml          # Variables apps (ingress hosts)
+  infrastructure.configmap.yaml# Infra variables (IPs, cluster name)
+  apps.configmap.yaml          # App variables (ingress hosts)
 
-apps/base/<app>/               # Manifests partagés
+apps/base/<app>/               # Shared manifests
   namespace.yaml
   <app>.helmrepository.yaml
   <app>.helmrelease.yaml
   kustomization.yaml
 
 apps/clusters/<cluster>/       # Overlays cluster
-  kustomization.yaml            # Compose les bases activées
+  kustomization.yaml            # Composes the enabled bases
 
 infrastructure/
   cilium/                      # Cilium CNI (L2 announcement, IP pool)
@@ -58,9 +58,9 @@ infrastructure/
 | Cluster | Infra | Apps |
 |---------|-------|------|
 | `prod` | Cilium, ZFS, CoreDNS+etcd, ExternalDNS, Traefik, cert-manager, Prometheus/Grafana, SealedSecrets, CNPG, monitoring | homepage, monitoring, podinfo |
-| `staging` | Identique à prod (IPs et domaine différents) | homepage, monitoring, podinfo |
+| `staging` | Same as prod (different IPs and domain) | homepage, monitoring, podinfo |
 | `gpu-cluster` | Cilium, ZFS, CoreDNS+etcd, ExternalDNS, Traefik, cert-manager, SealedSecrets | nvidia-device-plugin, open-webui |
-| `tf-cluster` | tf-controller | Terraform CRs (provisionnement VMs Proxmox) |
+| `tf-cluster` | tf-controller | Terraform CRs (Proxmox VM provisioning) |
 
 ## App Patterns
 
@@ -95,12 +95,12 @@ kubectl --kubeconfig /tmp/demo-pve1-cluster.yaml get pods -A
 
 ### Issue tracker
 
-Les issues et specs vivent sur GitHub Issues (CLI `gh`). Voir `docs/agents/issue-tracker.md`.
+Issues and specs live on GitHub Issues (`gh` CLI). See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
-Labels de triage : `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. Voir `docs/agents/triage-labels.md`.
+Triage labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
 
 ### Domain docs
 
-Multi-context : `CONTEXT-MAP.md` racine → un `CONTEXT.md` par domaine (apps, infrastructure, clusters). Décisions système dans `docs/adr/`. Voir `docs/agents/domain.md`.
+Multi-context: `CONTEXT-MAP.md` at the root → one `CONTEXT.md` per domain (apps, infrastructure, clusters). System decisions in `docs/adr/`. See `docs/agents/domain.md`.
