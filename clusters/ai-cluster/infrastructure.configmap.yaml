@@ -9,5 +9,5 @@ data:
   ciliumLoadBalancerIPPoolBlockStop: "192.168.10.235"
   corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.230"
   traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.231"
-  externalDnsDomainFilter: "homelab.vincentdupain.com"
-  sealedSecretsIngressHost: "sealedsecrets.homelab.vincentdupain.com"
+  externalDnsDomainFilter: "ai.vincentdupain.com"
+  sealedSecretsIngressHost: "sealedsecrets.ai.vincentdupain.com"
