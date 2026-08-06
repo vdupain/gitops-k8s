@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apps-vars
+  namespace: flux-system
+data:
+  openwebuiIngressHost: "open-webui.homelab.vincentdupain.com"
+  ollamaIngressHost: "ollama.homelab.vincentdupain.com"

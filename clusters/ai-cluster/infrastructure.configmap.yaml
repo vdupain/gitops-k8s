@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: infra-vars
+  namespace: flux-system
+data:
+  clusterName: "ai-cluster"
+  ciliumLoadBalancerIPPoolBlockStart: "192.168.10.230"
+  ciliumLoadBalancerIPPoolBlockStop: "192.168.10.235"
+  corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.230"
+  traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.231"
+  externalDnsDomainFilter: "homelab.vincentdupain.com"
