@@ -4,5 +4,5 @@ metadata:
   name: apps-vars
   namespace: flux-system
 data:
-  openwebuiIngressHost: "open-webui.homelab.vincentdupain.com"
-  ollamaIngressHost: "ollama.homelab.vincentdupain.com"
+  openwebuiIngressHost: "open-webui.ai.vincentdupain.com"
+  ollamaIngressHost: "ollama.ai.vincentdupain.com"
