@@ -29,12 +29,13 @@ spec:
       enabled: true
       models:
         pull:
-          - deepseek-r1:1.5b
+          - qwen3.5:9b
+          - qwen3.5:0.8b
         run:
-          - deepseek-r1:1.5b
+          - qwen3.5:9b
       persistentVolume:
         enabled: true
-        size: 10Gi
+        size: 15Gi
       ingress:
         enabled: true
         annotations:
