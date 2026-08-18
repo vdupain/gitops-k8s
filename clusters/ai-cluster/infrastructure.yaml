@@ -14,17 +14,11 @@ spec:
   path: ./infrastructure/cilium
   prune: true
   wait: true
-  patches:
-    - patch: |
-        - op: replace
-          path: /spec/blocks/0/start
-          value: 192.168.10.230
-        - op: replace
-          path: /spec/blocks/0/stop
-          value: 192.168.10.235
-      target:
-        kind: CiliumLoadBalancerIPPool
-        name: default-pool
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: infra-vars
+        optional: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -66,21 +60,6 @@ spec:
       - kind: ConfigMap
         name: infra-vars
         optional: false
-  patches:
-    - patch: |
-        - op: replace
-          path: /spec/values/service/annotations/io.cilium~1lb-ipam-ips
-          value: 192.168.10.230
-      target:
-        kind: HelmRelease
-        name: coredns
-    - patch: |
-        - op: replace
-          path: /spec/values/service/annotations/io.cilium~1lb-ipam-ips
-          value: 192.168.10.231
-      target:
-        kind: HelmRelease
-        name: traefik
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

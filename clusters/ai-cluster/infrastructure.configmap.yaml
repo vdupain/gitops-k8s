@@ -5,9 +5,9 @@ metadata:
   namespace: flux-system
 data:
   clusterName: "ai-cluster"
-  ciliumLoadBalancerIPPoolBlockStart: "192.168.10.230"
-  ciliumLoadBalancerIPPoolBlockStop: "192.168.10.235"
-  corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.230"
-  traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.231"
+  ciliumLoadBalancerIPPoolBlockStart: "192.168.50.240"
+  ciliumLoadBalancerIPPoolBlockStop: "192.168.50.245"
+  corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.240"
+  traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.241"
   externalDnsDomainFilter: "ai.vincentdupain.com"
   sealedSecretsIngressHost: "sealedsecrets.ai.vincentdupain.com"
