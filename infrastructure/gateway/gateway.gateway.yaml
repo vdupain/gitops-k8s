@@ -2,20 +2,20 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: ai-gateway
+  name: gateway
   namespace: gateway
   annotations:
     cert-manager.io/cluster-issuer: le-prod
-    io.cilium/lb-ipam-ips: 192.168.50.242
+    io.cilium/lb-ipam-ips: ${gatewayLoadBalancerIP}
 spec:
   gatewayClassName: cilium
   listeners:
     - name: https
       port: 443
       protocol: HTTPS
-      hostname: "*.ai.vincentdupain.com"
+      hostname: "${gatewayHostname}"
       tls:
         certificateRefs:
           - kind: Secret
-            name: ai-gateway-tls
+            name: gateway-tls
             namespace: gateway
