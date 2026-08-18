@@ -10,4 +10,4 @@ spec:
     name: le-prod
     kind: ClusterIssuer
   dnsNames:
-    - "${gatewayHostname}"
+    - "*.${gatewayDomain}"
