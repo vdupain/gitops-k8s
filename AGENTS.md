@@ -5,7 +5,7 @@ Reference guide for AI agents working on this repository.
 ## Stack
 
 - **GitOps** : Flux CD (v2.7.5) + Kustomize
-- **Clusters** : 4 (prod, staging, gpu-cluster, tf-cluster)
+- **Clusters** : 3 (prod, staging, tf-cluster)
 - **Secrets** : Bitnami SealedSecrets (files `.sealedsecret.yaml`)
 - **CI** : GitHub Actions (`.github/workflows/main.yml`)
 - **Domain** : `*.homelab.vincentdupain.com` (prod), `*.staging.vincentdupain.com` (staging)
@@ -59,7 +59,6 @@ infrastructure/
 |---------|-------|------|
 | `prod` | Cilium, ZFS, CoreDNS+etcd, ExternalDNS, Traefik, cert-manager, Prometheus/Grafana, SealedSecrets, CNPG, monitoring | homepage, monitoring, podinfo |
 | `staging` | Same as prod (different IPs and domain) | homepage, monitoring, podinfo |
-| `gpu-cluster` | Cilium, ZFS, CoreDNS+etcd, ExternalDNS, Traefik, cert-manager, SealedSecrets | nvidia-device-plugin, open-webui |
 | `tf-cluster` | tf-controller | Terraform CRs (Proxmox VM provisioning) |
 
 ## App Patterns
