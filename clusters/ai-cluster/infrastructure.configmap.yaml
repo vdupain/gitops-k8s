@@ -8,7 +8,6 @@ data:
   ciliumLoadBalancerIPPoolBlockStart: "192.168.50.240"
   ciliumLoadBalancerIPPoolBlockStop: "192.168.50.245"
   corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.240"
-  traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.241"
   externalDnsDomainFilter: "ai.vincentdupain.com"
   sealedSecretsHostname: "sealedsecrets.ai.vincentdupain.com"
   grafanaHostname: "grafana.ai.vincentdupain.com"
