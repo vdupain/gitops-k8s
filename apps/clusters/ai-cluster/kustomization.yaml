@@ -5,6 +5,8 @@ resources:
   - ../../base/ai/open-webui
   - ../../base/podinfo
   - podinfo.httproute.yaml
+  - open-webui.httproute.yaml
+  - ollama.httproute.yaml
 
 patches:
   # podinfo is served via Gateway API HTTPRoute on ai-cluster — the chart

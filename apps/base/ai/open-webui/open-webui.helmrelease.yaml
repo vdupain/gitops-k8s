@@ -19,12 +19,7 @@ spec:
 
   values:
     ingress:
-      enabled: true
-      annotations:
-        cert-manager.io/cluster-issuer: le-prod
-      host: ${openwebuiIngressHost}
-      tls: true
-      existingSecret: open-webui-tls
+      enabled: false
     ollama:
       enabled: true
       ollama:
@@ -38,15 +33,4 @@ spec:
         enabled: true
         size: 15Gi
       ingress:
-        enabled: true
-        annotations:
-          cert-manager.io/cluster-issuer: le-prod
-        hosts:
-          - host: ${ollamaIngressHost}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: ollama-tls
-            hosts:
-            - ${ollamaIngressHost}
+        enabled: false
