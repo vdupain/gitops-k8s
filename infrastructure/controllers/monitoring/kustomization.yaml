@@ -7,3 +7,4 @@ resources:
 - metrics-server.namespace.yaml
 - metrics-server.helmrepository.yaml
 - metrics-server.helmrelease.yaml
+- monitoring.httproute.yaml
