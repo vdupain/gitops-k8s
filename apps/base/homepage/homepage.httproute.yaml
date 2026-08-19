@@ -4,8 +4,6 @@ kind: HTTPRoute
 metadata:
   name: homepage
   namespace: homepage
-  annotations:
-    gethomepage.dev/enabled: "true"
 spec:
   parentRefs:
     - name: gateway
