@@ -4,7 +4,7 @@ metadata:
   name: apps-vars
   namespace: flux-system
 data:
-  openwebuiIngressHost: "open-webui.ai.vincentdupain.com"
-  ollamaIngressHost: "ollama.ai.vincentdupain.com"
-  podinfoIngressHost: "podinfo.ai.vincentdupain.com"
-  homepageIngressHost: "homepage.ai.vincentdupain.com"
+  openwebuiHostname: "open-webui.ai.vincentdupain.com"
+  ollamaHostname: "ollama.ai.vincentdupain.com"
+  podinfoHostname: "podinfo.ai.vincentdupain.com"
+  homepageHostname: "homepage.ai.vincentdupain.com"

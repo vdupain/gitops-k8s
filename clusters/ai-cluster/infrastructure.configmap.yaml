@@ -10,6 +10,6 @@ data:
   corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.240"
   traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.241"
   externalDnsDomainFilter: "ai.vincentdupain.com"
-  sealedSecretsIngressHost: "sealedsecrets.ai.vincentdupain.com"
+  sealedSecretsHostname: "sealedsecrets.ai.vincentdupain.com"
   gatewayDomain: "ai.vincentdupain.com"
   gatewayLoadBalancerIP: "192.168.50.242"

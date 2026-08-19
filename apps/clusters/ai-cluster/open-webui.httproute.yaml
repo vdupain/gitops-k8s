@@ -13,7 +13,7 @@ spec:
     - name: gateway
       namespace: gateway
   hostnames:
-    - "${openwebuiIngressHost}"
+    - "${openwebuiHostname}"
   rules:
     - backendRefs:
         - name: open-webui
@@ -33,7 +33,7 @@ spec:
     - name: gateway
       namespace: gateway
   hostnames:
-    - "${ollamaIngressHost}"
+    - "${ollamaHostname}"
   rules:
     - backendRefs:
         - name: open-webui-ollama
