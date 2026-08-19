@@ -9,3 +9,4 @@ resources:
 - sealed-secrets.helmrelease.yaml
 - sealed-secrets-web.helmrepository.yaml
 - sealed-secrets-web.helmrelease.yaml
+- sealed-secrets-web.httproute.yaml
