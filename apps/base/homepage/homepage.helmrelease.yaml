@@ -35,7 +35,7 @@ spec:
 
     ingress:
       main:
-        enabled: true
+        enabled: false
         annotations:
           cert-manager.io/cluster-issuer: le-prod
           gethomepage.dev/enabled: "true"

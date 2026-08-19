@@ -2,15 +2,15 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: podinfo
-  namespace: podinfo
+  name: homepage
+  namespace: homepage
 spec:
   parentRefs:
     - name: gateway
       namespace: gateway
   hostnames:
-    - "${podinfoIngressHost}"
+    - "${homepageIngressHost}"
   rules:
     - backendRefs:
-        - name: podinfo
-          port: 9898
+        - name: homepage
+          port: 3000

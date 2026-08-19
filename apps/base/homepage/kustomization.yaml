@@ -5,3 +5,4 @@ resources:
 - homepage.helmrepository.yaml
 - homepage.helmrelease.yaml
 - homepage-config.configmap.yaml
+- homepage.httproute.yaml
