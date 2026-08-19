@@ -4,6 +4,7 @@ resources:
 - monitoring.namespace.yaml
 - prometheus-community.helmrepository.yaml
 - prometheus.helmrelease.yaml
+- monitoring.httproute.yaml
 - metrics-server.namespace.yaml
 - metrics-server.helmrepository.yaml
 - metrics-server.helmrelease.yaml
