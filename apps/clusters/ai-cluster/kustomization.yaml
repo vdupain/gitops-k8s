@@ -5,4 +5,5 @@ resources:
   - ../../base/ai/open-webui
   - ../../base/podinfo
   - ../../base/homepage
+  - ../../base/monitoring
   - open-webui.httproute.yaml
