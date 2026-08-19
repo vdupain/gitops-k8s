@@ -30,7 +30,7 @@ spec:
           matchLabels:
             alertmanager: config
       ingress:
-        enabled: true
+        enabled: false
         annotations:
           cert-manager.io/cluster-issuer: le-prod
           gethomepage.dev/enabled: "true"
@@ -89,7 +89,7 @@ spec:
           outOfOrderTimeWindow: 30m
 
       ingress:
-        enabled: true
+        enabled: false
         annotations:
           cert-manager.io/cluster-issuer: le-prod
           gethomepage.dev/enabled: "true"
@@ -117,7 +117,7 @@ spec:
         enabled: true
         size: 1Gi
       ingress:
-        enabled: true
+        enabled: false
         annotations:
           cert-manager.io/cluster-issuer: le-prod
           gethomepage.dev/enabled: "true"
