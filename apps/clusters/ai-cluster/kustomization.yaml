@@ -3,3 +3,16 @@ kind: Kustomization
 resources:
   - ../../base/nvidia
   - ../../base/ai/open-webui
+  - ../../base/podinfo
+  - podinfo.httproute.yaml
+
+patches:
+  # podinfo is served via Gateway API HTTPRoute on ai-cluster — the chart
+  # Ingress stays disabled here (prod/staging keep their Ingress).
+  - target:
+      kind: HelmRelease
+      name: podinfo
+    patch: |-
+      - op: replace
+        path: /spec/values/ingress/enabled
+        value: false
