@@ -39,7 +39,8 @@ Each cluster gets a **16-IP block** starting at `192.168.50.(200 + 16 × N)`:
 - IPs are allocated **sequentially** within the pool:
   1. **coredns** — first IP of the pool (`base + 8`)
   2. **ingress / traefik** — second IP of the pool (`base + 9`)
-  3. other services — sequential order, one IP each
+  3. **Gateway API (Cilium)** — third IP of the pool (`base + 10`)
+  4. other services — sequential order, one IP each
 
 ### Example — ai-cluster (block 2, base `.232`)
 
@@ -49,6 +50,7 @@ Each cluster gets a **16-IP block** starting at `192.168.50.(200 + 16 × N)`:
 | LB pool | `192.168.50.240` – `192.168.50.245` |
 | coredns | `192.168.50.240` |
 | ingress (traefik) | `192.168.50.241` |
+| Gateway API (Cilium) | `192.168.50.242` |
 | Gateway | `192.168.50.1` |
 | VLAN tag | 50 |
 | MTU | 1400 (adapted to the VXLAN path) |
