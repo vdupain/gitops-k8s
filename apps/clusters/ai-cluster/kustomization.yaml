@@ -5,6 +5,8 @@ resources:
   - ../../base/ai/open-webui
   - ../../base/podinfo
   - podinfo.httproute.yaml
+  - open-webui.httproute.yaml
+  - ollama.httproute.yaml
 
 patches:
   # podinfo is served via Gateway API HTTPRoute on ai-cluster — the chart
@@ -15,4 +17,15 @@ patches:
     patch: |-
       - op: replace
         path: /spec/values/ingress/enabled
+        value: false
+  # open-webui and ollama are served via Gateway API HTTPRoute on ai-cluster
+  - target:
+      kind: HelmRelease
+      name: open-webui
+    patch: |-
+      - op: replace
+        path: /spec/values/ingress/enabled
+        value: false
+      - op: replace
+        path: /spec/values/ollama/ingress/enabled
         value: false
