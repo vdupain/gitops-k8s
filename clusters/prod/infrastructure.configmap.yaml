@@ -5,12 +5,14 @@ metadata:
   namespace: flux-system
 data:
   clusterName: "prod"
-  ciliumLoadBalancerIPPoolBlockStart: "192.168.10.210"
-  ciliumLoadBalancerIPPoolBlockStop: "192.168.10.215"
-  corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.210"
-  traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.211"
+  ciliumLoadBalancerIPPoolBlockStart: "192.168.50.224"
+  ciliumLoadBalancerIPPoolBlockStop: "192.168.50.229"
+  corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.224"
+  traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.225"
   externalDnsDomainFilter: "homelab.vincentdupain.com"
   alertmanagerIngressHost: "alertmanager.homelab.vincentdupain.com"
   grafanaIngressHost: "grafana.homelab.vincentdupain.com"
   prometheusIngressHost: "prometheus.homelab.vincentdupain.com"
   sealedSecretsIngressHost: "sealedsecrets.homelab.vincentdupain.com"
+  gatewayDomain: "homelab.vincentdupain.com"
+  gatewayLoadBalancerIP: "192.168.50.226"

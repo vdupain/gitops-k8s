@@ -14,3 +14,5 @@ data:
   grafanaIngressHost: "grafana.staging.vincentdupain.com"
   prometheusIngressHost: "prometheus.staging.vincentdupain.com"
   sealedSecretsIngressHost: "sealedsecrets.staging.vincentdupain.com"
+  gatewayDomain: "staging.vincentdupain.com"
+  gatewayLoadBalancerIP: "192.168.50.210"
