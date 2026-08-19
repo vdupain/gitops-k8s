@@ -31,20 +31,6 @@ spec:
             alertmanager: config
       ingress:
         enabled: false
-        annotations:
-          cert-manager.io/cluster-issuer: le-prod
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Alertmanager"
-          gethomepage.dev/icon: "si-prometheus"
-          gethomepage.dev/group: "Observability"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=alertmanager"
-        hosts:
-          - ${alertmanagerIngressHost}
-        path: /
-        tls:
-          - secretName: alertmanager-tls
-            hosts:
-            - ${alertmanagerIngressHost}
     prometheus:
       prometheusSpec:
         externalLabels:
@@ -90,20 +76,6 @@ spec:
 
       ingress:
         enabled: false
-        annotations:
-          cert-manager.io/cluster-issuer: le-prod
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Prometheus"
-          gethomepage.dev/icon: "si-prometheus"
-          gethomepage.dev/group: "Observability"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=prometheus"
-        hosts:
-          - ${prometheusIngressHost}
-        path: /
-        tls:
-          - secretName: prometheus-tls
-            hosts:
-            - ${prometheusIngressHost}
     grafana:
       enabled: true
       sidecar:
@@ -118,17 +90,3 @@ spec:
         size: 1Gi
       ingress:
         enabled: false
-        annotations:
-          cert-manager.io/cluster-issuer: le-prod
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/name: "Grafana"
-          gethomepage.dev/icon: "si-grafana"
-          gethomepage.dev/group: "Observability"
-          gethomepage.dev/pod-selector: "app.kubernetes.io/name=grafana"
-        hosts:
-          - ${grafanaIngressHost}
-        path: /
-        tls:
-          - secretName: grafana-tls
-            hosts:
-            - ${grafanaIngressHost}
