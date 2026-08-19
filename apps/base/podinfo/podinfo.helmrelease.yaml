@@ -29,4 +29,4 @@ spec:
         - name: gateway
           namespace: gateway
       hostnames:
-        - ${podinfoIngressHost}
+        - ${podinfoHostname}

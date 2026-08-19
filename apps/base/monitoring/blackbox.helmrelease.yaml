@@ -42,4 +42,4 @@ spec:
         module: http_2xx          
       targets:
         - name: podinfo
-          url: https://${podinfoIngressHost}
+          url: https://${podinfoHostname}

@@ -31,7 +31,7 @@ spec:
 
     env:
       - name: HOMEPAGE_ALLOWED_HOSTS
-        value: "${homepageIngressHost}"
+        value: "${homepageHostname}"
 
     ingress:
       main:
@@ -42,11 +42,11 @@ spec:
           gethomepage.dev/name: "Homepage"
           gethomepage.dev/group: "Apps"
         hosts:
-          - host: ${homepageIngressHost}
+          - host: ${homepageHostname}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: homepage-tls
             hosts:
-              - ${homepageIngressHost}
+              - ${homepageHostname}
