@@ -5,3 +5,4 @@ resources:
   - ../../base/ai/open-webui
   - ../../base/podinfo
   - open-webui.httproute.yaml
+  - ollama.httproute.yaml

@@ -13,6 +13,7 @@ data:
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
+    gateway: true
   services.yaml: |
     # - Observability:
     #   - Prometheus:
