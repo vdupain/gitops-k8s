@@ -6,3 +6,4 @@ metadata:
 data:
   openwebuiIngressHost: "open-webui.ai.vincentdupain.com"
   ollamaIngressHost: "ollama.ai.vincentdupain.com"
+  podinfoIngressHost: "podinfo.ai.vincentdupain.com"

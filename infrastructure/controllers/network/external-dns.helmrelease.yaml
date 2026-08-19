@@ -23,6 +23,7 @@ spec:
       - crd
       - service
       - ingress
+      - gateway-httproute
     logLevel: debug
     policy: sync
 
