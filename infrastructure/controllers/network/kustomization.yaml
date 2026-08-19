@@ -10,7 +10,4 @@ resources:
 - external-dns.namespace.yaml
 - external-dns.helmrepository.yaml
 - external-dns.helmrelease.yaml
-- traefik.namespace.yaml
-- traefik.helmrepository.yaml
-- traefik.helmrelease.yaml
 
