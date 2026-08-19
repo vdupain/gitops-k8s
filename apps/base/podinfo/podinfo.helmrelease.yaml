@@ -18,19 +18,11 @@ spec:
 
   values:
     ingress:
+      enabled: false
+    httpRoute:
       enabled: true
-      className: traefik
-      annotations:
-        cert-manager.io/cluster-issuer: le-prod
-        gethomepage.dev/enabled: "true"
-        gethomepage.dev/name: "Podinfo"          
-        gethomepage.dev/group: "Apps"          
-      hosts:
-        - host: ${podinfoIngressHost}
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      tls:
-        - secretName: podinfo-tls
-          hosts:
-            - ${podinfoIngressHost}
+      parentRefs:
+        - name: gateway
+          namespace: gateway
+      hostnames:
+        - ${podinfoIngressHost}
