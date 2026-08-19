@@ -5,10 +5,10 @@ metadata:
   namespace: flux-system
 data:
   clusterName: "staging"
-  ciliumLoadBalancerIPPoolBlockStart: "192.168.10.215"
-  ciliumLoadBalancerIPPoolBlockStop: "192.168.10.220"
-  corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.215"
-  traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.10.216"
+  ciliumLoadBalancerIPPoolBlockStart: "192.168.50.208"
+  ciliumLoadBalancerIPPoolBlockStop: "192.168.50.213"
+  corednsServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.208"
+  traefikServiceAnnotationCiliumLBIPAddrMgmt: "192.168.50.209"
   externalDnsDomainFilter: "staging.vincentdupain.com"
   alertmanagerIngressHost: "alertmanager.staging.vincentdupain.com"
   grafanaIngressHost: "grafana.staging.vincentdupain.com"
