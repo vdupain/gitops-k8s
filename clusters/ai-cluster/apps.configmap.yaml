@@ -6,5 +6,6 @@ metadata:
 data:
   openwebuiHostname: "open-webui.ai.vincentdupain.com"
   ollamaHostname: "ollama.ai.vincentdupain.com"
+  n8nHostname: "n8n.ai.vincentdupain.com"
   podinfoHostname: "podinfo.ai.vincentdupain.com"
   homepageHostname: "homepage.ai.vincentdupain.com"

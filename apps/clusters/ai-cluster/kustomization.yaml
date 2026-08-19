@@ -3,7 +3,9 @@ kind: Kustomization
 resources:
   - ../../base/nvidia
   - ../../base/ai/open-webui
+  - ../../base/ai/n8n
   - ../../base/podinfo
   - ../../base/homepage
   - ../../base/monitoring
+  - n8n.httproute.yaml
   - open-webui.httproute.yaml
